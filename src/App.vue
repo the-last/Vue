@@ -1,57 +1,62 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    
     <p>
-      count from store and computing 同步计算斐波那契数  ... {{ fibFromStore }}
+      count from store and computing 同步计算斐波那契数  ... {{ flagFromStore }}
     </p>
     <p>
       {{ doneTodos('hi---',1) }}
     </p>
-    <HelloWorld />
+    <app2></app2>
+    <router-view></router-view>
+    
   </div>
 </template>
 
 <script>
+import App2 from './App2.vue';
+import './App.css';
 import { mapGetters } from 'vuex';
 import store from './store/index';
-import HelloWorld from './components/HelloWorld.vue'
-const app = 'App'
+// const app = 'App'
+
 export default {
-  name: 'app',
-  beforeCreate() {
-    console.log(app + '---beforeCreate--')
-  },
-  created() {
-    console.log(app + '---created---')
-  },
-  beforeMount() {
-    console.log(app + '---beforeMount---')
-  },
-  mounted() {
-    console.log(app + '---mounted---')
-  },
-  beforeUpdate() {
-    console.log(app + '---beforeUpdate---')
-  },
-  updated() {
-    console.log(app + '---updated---')
-  },
-  beforeDestroy() {
-    console.log(app + '---beforeDestory---')
-  },
-  destroyed() {
-    console.log(app + '---destroyed---')
-  },
-  components: {
-    HelloWorld
+  
+  // beforeCreate() {
+  //   console.log(app + '---beforeCreate--')
+  // },
+  // created() {
+  //   console.log(app + '---created---')
+  // },
+  // beforeMount() {
+  //   console.log(app + '---beforeMount---')
+  // },
+  // mounted() {
+  //   console.log(app + '---mounted---')
+  // },
+  // beforeUpdate() {
+  //   console.log(app + '---beforeUpdate---')
+  // },
+  // updated() {
+  //   console.log(app + '---updated---')
+  // },
+  // beforeDestroy() {
+  //   console.log(app + '---beforeDestory---')
+  // },
+  // destroyed() {
+  //   console.log(app + '---destroyed---')
+  // },
+  mixins: [App2],
+  car: 'LUHU',
+  created () {
+    console.log('%c car App  : -- ','color:#f00;font-size:16px;', this.$options.car);
   },
   store,
   computed: {
-    fibFromStore() {
-      console.time('computed-fibFromStore-开始');
+    flagFromStore() {
       const { count } = this.$store.state;
-      let temp = this.fib(count || 1);
-      console.timeEnd('computed-fibFromStore-开始');
+      let temp = count || this.fib(count || 1);
       return temp;
     },
     ...mapGetters([
