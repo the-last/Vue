@@ -3,11 +3,9 @@
         <h2>
             <router-link to="/hello">首页</router-link>
         </h2>
-        <form>
+        
             <label for="message">信息</label>
-            <input v-model="message">
-
-        </form>
+            <input  @keyup.enter="check" >
         
         <p :style="{textAlign: 'left',color: 'red', display: 'flow-root'}">
             来自mock数据：  Mock Test
@@ -58,6 +56,9 @@ export default {
         ...mapActions({
             getPersonList: 'actionGetMockDataPersonList'
         }),
+        check (v) {
+            console.log(v.target.value)
+        }
     },
 }
 </script>
