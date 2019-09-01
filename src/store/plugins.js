@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // 通过插件的参数对象得到空间名称
 // 然后返回 Vuex 插件函数
 function createPlugin (options = {}) {
@@ -9,9 +11,10 @@ function createPlugin (options = {}) {
 }
 
 const myPlugin = store => {
-    store.subscribe((mutation, state) => {
+    // store.subscribe((mutation, state) => {
+    store.subscribe(() => {
         // 每次 mutation 之后调用
-        console.log(mutation, state, '-----Store 中的plugins');
+        // console.log(mutation, state);
         /** 
          * *state* 只是包含 3类值
          * 一级根store的 state
@@ -49,10 +52,23 @@ function createWebSocketPlugin (socket) {
             }
         })
     }
-  }
+}
+
+const myPluginWithSnapshot = store => {
+    let prevState = _.cloneDeep(store.state)
+    store.subscribe((mutation, state) => {
+        let nextState = _.cloneDeep(state)
+        // 比较 prevState 和 nextState...
+        if (JSON.stringify(prevState) === JSON.stringify(nextState) ) {
+            prevState = nextState;
+        }
+      
+    });
+}
 
 export {
     myPlugin,
     createPlugin,
     createWebSocketPlugin,
+    myPluginWithSnapshot,
 }

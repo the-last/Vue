@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters,  createNamespacedHelpers} from "vuex";
+import { mapState, mapGetters } from "vuex";
 // const { mapState } = createNamespacedHelpers('account') ;
 import moduleC from '../store/moduleC';
 import store from "../store/index";
